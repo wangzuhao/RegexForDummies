@@ -13,36 +13,86 @@ def run_test_case_session(solution):
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
-                              ]
-                             )
+    
+    resultList = []
+    solved = False
+    objective = 'Keep Lyrics Only'
+    expectation = "TEARS IN HEAVEN \n Would you know my name,\n If I saw you in heaven?\n Would it be the same,\n If I saw you in heaven?\n I must be strong,\n and carry on,\n 'Cause I know I don't belong,\n Here in heaven."
+    
+    try:
+        answer = re.compile(solution)
+        
+    except re.error:
+        resultDict = {'case_objective': objective, 'expected': expectation, 'received': "Check your Regex syntax. Did you miss a ')' or something?", 'correct': solved}
+        resultList.append(resultDict)
+        
+        return resultList, solved
 
+
+    original = ["TEARS IN HEAVEN \n", 
+                "(A         E      F#m  A/E)\n", 
+                " Would you know my name,\n", 
+                "(D/F#    A/E          E)\n", 
+                " If I saw you in heaven?\n", 
+                "(A      E       F#m A/E)\n", 
+                " Would it be the same,\n", 
+                "(D/F#    A/E         E)\n", 
+                " If I saw you in heaven?\n", 
+                "[Verse]\n", 
+                "(F#m          C#/E#)\n", 
+                " I must be strong,\n", 
+                "(A7/E         F#7)\n", 
+                " and carry on,\n", 
+                "(         Bm            Bm7/E)\n", 
+                " 'Cause I know I don't belong,\n", 
+                "(      A        )\n", 
+                " Here in heaven."]
+
+    
+    lyrics = ""                         
+
+    for line in original:
+        isMatched = answer.search(line)
+        if not isMatched:
+            lyrics = lyrics + line
+    
+    if lyrics == expectation:
+        correct = solved = True
+    else:
+        correct = solved = False
+
+    resultDict = {'case_objective': objective, 'expected': expectation, 'received': lyrics, 'correct': correct}
+    resultList.append(resultDict)
+
+    return resultList, solved
+        
+    """
+    test_cases = [original]
+    lyrics = ""                         
     resultList = []
     solved = True
     for case in test_cases:
-        objective = test_cases[case]
-        match_result = re.search(solution, case)
-        if match_result:
-            got = match_result.group()
-            if objective == 'match' and got == case:
-                correct = True
+        objective = 'comparison'
+        for line in case:
+            isMatched = re.search(solution, line)
+            if isMatched:
+                continue
             else:
-                correct = solved = False
-        else:
-            got = 'skipped'
-            if objective == 'skip':
-                correct = True
-            else:
-                correct = solved = False
+                lyrics = lyrics + line
+        
+        if lyrics == expectation:
+            correct = solved = True
 
-        resultDict = {'case_objective': objective, 'expected': case, 'received': got, 'correct': correct}
+        else:
+            correct = solved = False
+
+
+        resultDict = {'case_objective': objective, 'expected': expectation, 'received': lyrics, 'correct': correct}
         resultList.append(resultDict)
 
     return resultList, solved
-
+    """
+    
 
 def generate_feedback(solution):
     """
