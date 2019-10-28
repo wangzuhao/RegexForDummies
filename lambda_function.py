@@ -31,8 +31,13 @@ def lambda_handler(event, context):
         bodyContent = event.get('body', {})
         parsedBodyContent = json.loads(bodyContent)
         session_index = parsedBodyContent["sessionIndex"]["0"]
-        solution = parsedBodyContent["editable"]["0"]
 
-        output = globals()['session_{}_feedback'.format(session_index)].generate_feedback(solution)
+        if session_index == "10":
+            test_cases = parsedBodyContent["testCase"]["0"]
+            solution = parsedBodyContent["solution"]["0"]
+            output = globals()['session_{}_feedback'.format(session_index)].generate_feedback(test_cases, solution)
+        else:
+            solution = parsedBodyContent["editable"]["0"]
+            output = globals()['session_{}_feedback'.format(session_index)].generate_feedback(solution)
 
         return output

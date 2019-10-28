@@ -7,18 +7,18 @@ import io
 from collections import OrderedDict
 
 
-def run_test_case_session(solution):
+def run_test_case_session(test_cases, solution):
     """
     run test cases here
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
-                              ]
-                             )
+    user_test_cases = []
+    for test_case in test_cases.splitlines():
+        if len(test_case) < 2:
+            continue
+        user_test_cases.append((test_case[6:].strip(), test_case.split()[0].lower()))
+    test_cases = OrderedDict(user_test_cases)
 
     resultList = []
     solved = True
@@ -44,9 +44,9 @@ def run_test_case_session(solution):
     return resultList, solved
 
 
-def generate_feedback(solution):
+def generate_feedback(test_cases, solution):
     """
-    take in user submit solution and run test cases to generate feedback
+    take in user submit test case and solution and run test cases to generate feedback
     :param solution: user submit solution
     :return: a dict of feedback
     """
@@ -68,7 +68,7 @@ def generate_feedback(solution):
 
     # After setting the alarm clock we invoke the long running function.
     try:
-        result, solved = run_test_case_session(solution)
+        result, solved = run_test_case_session(test_cases, solution)
         printed = output.getvalue()
         responseDict = {"solved": solved, "results": result, "printed": printed}
     except Exception as ex:
