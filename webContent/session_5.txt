@@ -5,8 +5,8 @@
                     vModel:"TEARS IN HEAVEN \n(A         E      F#m  A/E)\n Would you know my name,\n(D/F#    A/E          E)\n If I saw you in heaven?\n(A      E       F#m A/E)\n Would it be the same,\n(D/F#    A/E         E)\n If I saw you in heaven?\n[Verse]\n(F#m          C#/E#)\n I must be strong,\n(A7/E         F#7)\n and carry on,\n(         Bm            Bm7/E)\n 'Cause I know I don't belong,\n(      A        )\n Here in heaven."
                 },
                 {   header:"Editable Code Block",
-                    subHeader:'Please write your regex here',
-                    vModel:"^(\(|\[).+"
+                    subHeader:'Please write your regex in below to capture all the lines to be removed',
+                    vModel:"^(.+"
                 },
                 {   header:"Introduction", subHeader:'',
                     vModel:"On the right side there is a lyrics with guitar chords. Chould you create a Regex to remove all chords, and just keep the lyrics? Hint: the result should be like below:\n\nTEARS IN HEAVEN \n Would you know my name,\n If I saw you in heaven?\n Would it be the same,\n If I saw you in heaven?\n I must be strong,\n and carry on,\n 'Cause I know I don't belong,\n Here in heaven."
