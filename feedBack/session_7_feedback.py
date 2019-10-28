@@ -13,11 +13,9 @@ def run_test_case_session(solution):
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
-                              ]
+    test_cases = OrderedDict([('file_Platform_Design_and_Economy.pdf', 'match'),
+                              ('file_IS5003.pdf', 'match'),
+                              ('testfile_fake.pdf.tmp', 'skip')]
                              )
 
     resultList = []
@@ -96,10 +94,10 @@ def generate_feedback(solution):
                 textResults = textResults + "\nHurray! You have passed this test case {}.\n".format(expectedText)
                 textBackgroundColor = "#b2d8b2"
             else:
-                if expectedText == 'skip':
-                    textResults = textResults + "\nYou should skip this case: {}".format(expectedText)
-                textResults = textResults + "\nThe test case eludes your code so far but try again! You should match {} but received {}.\n".format(
-                    expectedText, receivedText)
+                if objective == 'match':
+                    textResults = textResults + "\nThe test case eludes your code so far but try again!\nYou should match this case: {}, but received {}.\n".format(expectedText, receivedText)
+                elif objective == 'skip':
+                    textResults = textResults + "\nThe test case eludes your code so far but try again!\nYou should skip this case: {}".format(expectedText)
                 textBackgroundColor = "#ff9999"
             tableContents = tableContents + """
                     <tr bgcolor={4}>
