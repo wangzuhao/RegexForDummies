@@ -1,10 +1,30 @@
 {name:"session 7", layoutItems: [
                 {header:"Tests", sessionIndex:"7",
                 subHeader:'To write an regular expression to pass the following cases',
-                vModel:"Match yyyyess \nMatch yyeeees \nMatch yyss \nSkip y"},
+                vModel:"Match   file_record_transcript.pdf\n"+
+                       "Match   file_07241999.pdf\n"+
+                       "Skip    testfile_fake.pdf.tmp\n\n"+
+                       "Please only capture lines that start with 'file' and have the file extension '.pdf'\n" },
                 {header:"Editable Code Block",
                 subHeader:'Please write your regex here',
-                vModel:"y{2,4}[es]{1,5}"},
+                vModel:""},
                 {header:"Introduction", subHeader:'',
-                vModel:"We’ve so far learned how to match a set of specific characters, but what if we want to match a specific number of repetitions of characters? Say, if we want to pick ooops out of ops and oops. Instead of hardcoding three os, a simple way is to use curly braces notation like o{3}, which will match the word with exactly three os. And if you put o{1,3}, you will find words with no less than one o and no more than three o. This quantifier can be used with any character, or special metacharacters, for example w{3} (three w's), [wxy]{5} (five characters, each of which can be a w, x, or y) and .{2,6} (between two and six of any character) \nIf you wish to match an arbitrary number of characters, you can make use of the Kleene Star and the Kleene Plus. For example, to match the donations above, we can use the pattern \d* to match any number of digits, but a tighter regular expression would be \d+ which ensures that the input string has at least one digit. These quantifiers can be used with any character or special metacharacters, for example a+ (one or more a's), [abc]+ (one or more of any a, b, or c character) and .* (zero or more of any character) "}
+                vModel:"One day, Joffrey asked John to pick up all the names of pdf files in the company document library with fixed prefix. There were so many documents in the company directory that he didn't know where to start, so he asked Sam for help. Sam gave him detailed instructions on how to accomplish this task with REGEX."+
+                       "\n\n"+
+                       "Regular expressions allow us to not just match text but also to extract information for further processing. This is done by defining groups of characters and capturing them using the special parentheses ( and ) metacharacters. Any subpattern inside a pair of parentheses will be captured as a group. In practice, this can be used to extract information like phone numbers or emails from all sorts of data."+
+                       "\n\n"+
+                       "Imagine for example that you had a command line tool to list all the image files you have in the cloud. You could then use a pattern such as ^(IMG\d+\.png)$ to capture and extract the full filename, but if you only wanted to capture the filename without the extension, you could use the pattern ^(IMG\d+)\.png$ which only captures the part before the period."+
+                       "\n\n"+
+                       "If each of these image files had a sequential picture number in the filename, you could extract both the filename and the picture number using the same pattern by writing an expression like ^(IMG(\d+))\.png$ (using a nested parenthesis to capture the digits)."+
+                       "\n\n"+ 
+                       "All the quantifiers including the star *, plus +, repetition {m,n} and the question mark ? can all be used within the capture group patterns. This is the only way to apply quantifiers on sequences of characters instead of the individual characters themselves."+
+                       "\n\n"+ 
+                       "Summary: "+
+                       "\n\n"+
+                       "(…) Capture Group "+
+                       "\n\n"+
+                       "(a(bc)) Capture Sub-group "+
+                       "\n\n"+
+                       "(.*) Capture all\n"
+                }
                 ], status:" 🔴"}
