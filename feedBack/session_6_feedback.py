@@ -13,11 +13,14 @@ def run_test_case_session(solution):
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
-                              ]
+    test_cases = OrderedDict([('A', 'match'),
+                              ('H', 'match'),
+                              ('C', 'match'),
+                              ('E', 'skip'),
+                              ('T', 'skip'),
+                              ('U', 'skip'),
+                              ('F', 'skip'),
+                              ('O', 'skip')]
                              )
 
     resultList = []
@@ -25,6 +28,7 @@ def run_test_case_session(solution):
     for case in test_cases:
         objective = test_cases[case]
         match_result = re.search(solution, case)
+        print(match_result)
         if match_result:
             got = match_result.group()
             if objective == 'match' and got == case:
@@ -96,10 +100,11 @@ def generate_feedback(solution):
                 textResults = textResults + "\nHurray! You have passed this test case {}.\n".format(expectedText)
                 textBackgroundColor = "#b2d8b2"
             else:
-                if expectedText == 'skip':
+                if objective == 'match':
+                    textResults = textResults + "\nThe test case eludes your code so far but try again!\nYou should match this case: {}, but received {}.\n".format(expectedText, receivedText)
+                elif objective == 'skip':
                     textResults = textResults + "\nYou should skip this case: {}".format(expectedText)
-                textResults = textResults + "\nThe test case eludes your code so far but try again! You should match {} but received {}.\n".format(
-                    expectedText, receivedText)
+                    textResults = textResults + "\nhint: ET will take away UFO at the same time!\n"
                 textBackgroundColor = "#ff9999"
             tableContents = tableContents + """
                     <tr bgcolor={4}>

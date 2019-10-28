@@ -6,42 +6,142 @@ import signal
 import io
 from collections import OrderedDict
 
-
 def run_test_case_session(solution):
     """
     run test cases here
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
-                              ]
-                             )
-
     resultList = []
     solved = True
-    for case in test_cases:
-        objective = test_cases[case]
-        match_result = re.search(solution, case)
-        if match_result:
-            got = match_result.group()
-            if objective == 'match' and got == case:
-                correct = True
-            else:
-                correct = solved = False
+    
+    # Answer
+    # answer_q1 = r"EditPad (Lite|Pro)"
+    # answer_q2_search = r"\b(\w+)\s+\1\b"
+    # answer_q2_replace = r"\1"
+    
+    lines = solution.split("\n")
+    
+    '''
+    solved = False
+    resultList = [{
+        'case_objective': solution.replace("\n", " @n "),
+        'expected': str(lines),
+        'received': "No Answer Received for Question 1 and 2",
+        'correct': False
+    }]
+    return resultList, solved
+    '''
+    answer_q1 = ""
+    answer_q2_search = ""
+    answer_q2_replace = ""
+    
+    if len(lines) >= 2:
+        answer_q1 = lines[1].strip()
+    if len(lines) < 2 or answer_q1 == "":
+        solved = False
+        resultList = [{
+            'case_objective': "No Answer Received for Question 1",
+            'expected': "No Answer Received for Question 1",
+            'received': "No Answer Received for Question 1",
+            'correct': False
+        }]
+        return resultList, solved
+        
+    if len(lines) >= 4:
+        answer_q2_search = lines[3].strip()
+    if len(lines) < 4 or answer_q2_search == "":
+        solved = False
+        resultList = [{
+            'case_objective': "No Answer Received for Question 2",
+            'expected': "No Answer Received for Question 2",
+            'received': "No Answer Received for Question 2",
+            'correct': False
+        }]
+        return resultList, solved
+        
+    if len(lines) >= 6:
+        answer_q2_replace = lines[5].strip()
+    if len(lines) < 6 or answer_q2_replace == "":
+        solved = False
+        resultList = [{
+            'case_objective': "No Answer Received for Question 2 - String for Replacement",
+            'expected': "No Answer Received for Question 2 - String for Replacement",
+            'received': "No Answer Received for Question 2 - String for Replacement",
+            'correct': False
+        }]
+        return resultList, solved
+    
+    def check_q1(test_case, expected):
+        correct = True
+        answer = ""
+        try:
+            answer = re.sub(answer_q1, r'\1 version', test_case)
+        except:
+            answer = "None"
+        
+        if answer == expected:
+            correct = True
         else:
-            got = 'skipped'
-            if objective == 'skip':
-                correct = True
-            else:
-                correct = solved = False
-
-        resultDict = {'case_objective': objective, 'expected': case, 'received': got, 'correct': correct}
-        resultList.append(resultDict)
+            correct = False
+        
+        resultDict = {
+            'case_objective': "Question 1 Test Case: " + test_case,
+            'expected': expected,
+            'received': answer,
+            'correct': correct
+        }
+        return resultDict
+    
+    def check_q2(test_case, expected):
+        correct = True
+        answer = ""
+        try:
+            answer = re.sub(answer_q2_search, answer_q2_replace, test_case)
+        except:
+            answer = "None"
+        
+        if answer == expected:
+            correct = True
+        else:
+            correct = False
+        
+        resultDict = {
+            'case_objective': "Question 2 Test Case: " + test_case,
+            'expected': expected,
+            'received': answer,
+            'correct': correct
+        }
+        return resultDict
+    
+    resultDict_q1_1 = check_q1('EditPad Lite', "Lite version")
+    resultList.append(resultDict_q1_1)
+    if resultDict_q1_1['correct'] == False:
+        solved = False
+    resultDict_q1_2 = check_q1('Not Replace Lite', "Not Replace Lite")
+    resultList.append(resultDict_q1_2)
+    if resultDict_q1_2['correct'] == False:
+        solved = False
+    resultDict_q1_3 = check_q1('EditPad Pro', "Pro version")
+    resultList.append(resultDict_q1_3)
+    if resultDict_q1_3['correct'] == False:
+        solved = False
+    resultDict_q1_4 = check_q1('Not Replace Pro', "Not Replace Pro")
+    resultList.append(resultDict_q1_4)
+    if resultDict_q1_4['correct'] == False:
+        solved = False
+    
+    resultDict_q2_1 = check_q2('This is a a test', "This is a test")
+    resultList.append(resultDict_q2_1)
+    if resultDict_q2_1['correct'] == False:
+        solved = False
+    resultDict_q2_2 = check_q2('This is a test', "This is a test")
+    resultList.append(resultDict_q2_2)
+    if resultDict_q2_2['correct'] == False:
+        solved = False
 
     return resultList, solved
+
 
 
 def generate_feedback(solution):

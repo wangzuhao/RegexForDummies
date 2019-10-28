@@ -1,10 +1,14 @@
-{name:"session 5", layoutItems: [
-                {header:"Tests", sessionIndex:"5",
-                subHeader:'To write an regular expression to pass the following cases',
-                vModel:"Match yyyyess \nMatch yyeeees \nMatch yyss \nSkip y"},
-                {header:"Editable Code Block",
-                subHeader:'Please write your regex here',
-                vModel:"y{2,4}[es]{1,5}"},
-                {header:"Introduction", subHeader:'',
-                vModel:"We’ve so far learned how to match a set of specific characters, but what if we want to match a specific number of repetitions of characters? Say, if we want to pick ooops out of ops and oops. Instead of hardcoding three os, a simple way is to use curly braces notation like o{3}, which will match the word with exactly three os. And if you put o{1,3}, you will find words with no less than one o and no more than three o. This quantifier can be used with any character, or special metacharacters, for example w{3} (three w's), [wxy]{5} (five characters, each of which can be a w, x, or y) and .{2,6} (between two and six of any character) \nIf you wish to match an arbitrary number of characters, you can make use of the Kleene Star and the Kleene Plus. For example, to match the donations above, we can use the pattern \d* to match any number of digits, but a tighter regular expression would be \d+ which ensures that the input string has at least one digit. These quantifiers can be used with any character or special metacharacters, for example a+ (one or more a's), [abc]+ (one or more of any a, b, or c character) and .* (zero or more of any character) "}
-                ], status:" 🔴"}
+{   name:"session 5", 
+    layoutItems: [
+                {   header:"Question", sessionIndex:"5",
+                    subHeader:'Remove the lines with chords and structual notation, but keep the title and lyrics.',
+                    vModel:"TEARS IN HEAVEN \n(A         E      F#m  A/E)\n Would you know my name,\n(D/F#    A/E          E)\n If I saw you in heaven?\n(A      E       F#m A/E)\n Would it be the same,\n(D/F#    A/E         E)\n If I saw you in heaven?\n[Verse]\n(F#m          C#/E#)\n I must be strong,\n(A7/E         F#7)\n and carry on,\n(         Bm            Bm7/E)\n 'Cause I know I don't belong,\n(      A        )\n Here in heaven."
+                },
+                {   header:"Editable Code Block",
+                    subHeader:'Please write your regex here',
+                    vModel:"^(\(|\[).+"
+                },
+                {   header:"Introduction", subHeader:'',
+                    vModel:"On the right side there is a lyrics with guitar chords. Chould you create a Regex to remove all chords, and just keep the lyrics? Hint: the result should be like below:\n\nTEARS IN HEAVEN \n Would you know my name,\n If I saw you in heaven?\n Would it be the same,\n If I saw you in heaven?\n I must be strong,\n and carry on,\n 'Cause I know I don't belong,\n Here in heaven."
+                }], 
+    status:" 🔴"}

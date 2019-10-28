@@ -1,10 +1,32 @@
 {name:"session 6", layoutItems: [
                 {header:"Tests", sessionIndex:"6",
                 subHeader:'To write an regular expression to pass the following cases',
-                vModel:"Match yyyyess \nMatch yyeeees \nMatch yyss \nSkip y"},
+                vModel:"Now we have 26 letters on the earth, if an ET prepares to go back to his planet, then what are we left with? Please try to use REGEX to capture them separately."+
+                "\n\n"+
+                "The letteres are in upper cases."+
+                "\n\n"+
+                "For example, you should match letter A, but skip letter E."
+                },
                 {header:"Editable Code Block",
-                subHeader:'Please write your regex here',
-                vModel:"y{2,4}[es]{1,5}"},
-                {header:"Introduction", subHeader:'',
-                vModel:"We’ve so far learned how to match a set of specific characters, but what if we want to match a specific number of repetitions of characters? Say, if we want to pick ooops out of ops and oops. Instead of hardcoding three os, a simple way is to use curly braces notation like o{3}, which will match the word with exactly three os. And if you put o{1,3}, you will find words with no less than one o and no more than three o. This quantifier can be used with any character, or special metacharacters, for example w{3} (three w's), [wxy]{5} (five characters, each of which can be a w, x, or y) and .{2,6} (between two and six of any character) \nIf you wish to match an arbitrary number of characters, you can make use of the Kleene Star and the Kleene Plus. For example, to match the donations above, we can use the pattern \d* to match any number of digits, but a tighter regular expression would be \d+ which ensures that the input string has at least one digit. These quantifiers can be used with any character or special metacharacters, for example a+ (one or more a's), [abc]+ (one or more of any a, b, or c character) and .* (zero or more of any character) "}
+                subHeader:'Please write your regex here using what you have learned in this lesson (Note: we are using the version of  python here.)',
+                vModel:"" }, 
+                {header:"Introduction", subHeader:'Character Class Subtraction and Intersection',
+                vModel:"(1) Subtraction"+
+                       "\n\n"+
+                       "Character class subtraction makes it easy to match any single character present in one list (the character class), but not present in another list (the subtracted class)."+
+                       "\n\n"+
+                       "The syntax for this is [class-[subtract]]."+
+                       "\n\n"+
+                       "If the character after a hyphen is an opening bracket, these flavors interpret the hyphen as the subtraction operator rather than the range operator. You can use the full character class syntax within the subtracted character class. In general, the character class [a-z-[aeiuo]] matches a single letter that is not a vowel. In other words: it matches a single consonant. "+
+                       "\n\n"+
+                       "Here we only focus on the version which can be used in python. The character class should be expressed as (?![aeiou])[a-z]. The negative lookahead asserts that the following character is not a lowercase vowel. Then [a-z] matches a letter, which is guaranteed not to be a vowel. Without character class subtraction or intersection, the only way to do this would be to list all consonants: [b-df-hj-np-tv-z]. "+
+                       "\n\n"+
+                       "(2) Intersection"+
+                       "\n\n"+
+                       "Character class intersection makes it easy to match any single character that must be present in two sets of characters. You can use the full character class syntax within the intersected character class."+
+                       "\n\n"+
+                       "The syntax for this is [class&&[intersect]]."+
+                       "\n\n"+
+                       "The character class [a-z&&[^aeiuo]] matches a single letter that is not a vowel. In other words: it matches a single consonant. Without character class subtraction or intersection, the only way to do this would be to list all consonants: [b-df-hj-np-tv-z]."+
+                       "\n"}
                 ], status:" 🔴"}
