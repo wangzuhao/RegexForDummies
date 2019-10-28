@@ -13,10 +13,10 @@ def run_test_case_session(solution):
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
+    test_cases = OrderedDict([('aD1^', 'match'),
+                              ('bEf@', 'match'),
+                              ('cFH.', 'match'),
+                              ('CD1&', 'skip')
                               ]
                              )
 
