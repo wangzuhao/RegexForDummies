@@ -13,36 +13,98 @@ def run_test_case_session(solution):
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
-                              ]
-                             )
+    
+    # Answer
+    # answer = r"\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b"
 
+    solution = solution.strip()
     resultList = []
     solved = True
-    for case in test_cases:
-        objective = test_cases[case]
-        match_result = re.search(solution, case)
-        if match_result:
-            got = match_result.group()
-            if objective == 'match' and got == case:
+    
+    test_pass =[
+        " 192.168.10.10 ",
+        " 0.0.0.0 ",
+        " 255.255.255.255 ",
+        " 0.255.49.37 ",
+        "(192.168.10.10)"
+    ]
+    test_not_pass = [
+        " 192.18.1 ",
+        " 256.1.1.1 ",
+        " 192.168.1.256 ",
+        " a192.168.10.10 ",
+        " 1192.168.10.10 ",
+        " 192.168.1.1a ",
+        " 192.168.1.1111 "
+    ]
+    
+    def check_test_pass(test_case, expected):
+        correct = True
+        answer = None
+        result = re.search(solution, test_case)
+        
+        if result != None:
+            answer = result.group(0)
+            if answer == expected:
                 correct = True
             else:
-                correct = solved = False
+                correct = False
         else:
-            got = 'skipped'
-            if objective == 'skip':
-                correct = True
-            else:
-                correct = solved = False
-
-        resultDict = {'case_objective': objective, 'expected': case, 'received': got, 'correct': correct}
-        resultList.append(resultDict)
+            correct = False
+        
+        resultDict_pass = {
+            'case_objective': "Test Case: " + test_case + "\nMatch",
+            'expected': expected,
+            'received': str(answer),
+            'correct': correct
+        }
+        return resultDict_pass
+        
+    def check_test_not_pass(test_case):
+        correct = True
+        answer = None
+        result = re.search(solution, test_case)
+        
+        if result != None:
+            correct = False
+            answer = result.groups()
+        
+        resultDict_pass = {
+            'case_objective': "Test Case: " + test_case + "\nSkip",
+            'expected': "None",
+            'received': str(answer),
+            'correct': correct
+        }
+        return resultDict_pass
+        
+    resultDict_pass_1 = check_test_pass(test_pass[0], "192.168.10.10")
+    resultList.append(resultDict_pass_1)
+    if resultDict_pass_1['correct'] == False:
+        solved = False
+    resultDict_pass_2 = check_test_pass(test_pass[1], "0.0.0.0")
+    resultList.append(resultDict_pass_2)
+    if resultDict_pass_2['correct'] == False:
+        solved = False
+    resultDict_pass_3 = check_test_pass(test_pass[2], "255.255.255.255")
+    resultList.append(resultDict_pass_3)
+    if resultDict_pass_3['correct'] == False:
+        solved = False
+    resultDict_pass_4 = check_test_pass(test_pass[3], "0.255.49.37")
+    resultList.append(resultDict_pass_4)
+    if resultDict_pass_4['correct'] == False:
+        solved = False
+    resultDict_pass_5 = check_test_pass(test_pass[4], "192.168.10.10")
+    resultList.append(resultDict_pass_5)
+    if resultDict_pass_5['correct'] == False:
+        solved = False
+    
+    for i in test_not_pass:
+        resultDict_not_pass = check_test_not_pass(i)
+        resultList.append(resultDict_not_pass.copy())
+        if resultDict_not_pass['correct'] == False:
+            solved = False
 
     return resultList, solved
-
 
 def generate_feedback(solution):
     """
