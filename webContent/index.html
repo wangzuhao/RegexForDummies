@@ -20,8 +20,14 @@
          <h1>Regex For Dummies</h1>
         <div id="app">
             <md-tabs>
+                <md-tab :key=intro.name v-bind:md-label=intro.name+intro.status>
+                    <intro-activity v-bind:layout-things=intro.layoutItems v-bind:question-name=intro.name  @questionhandler="toggleQuestionStatus"/>
+                </md-tab>
                 <md-tab v-for="question in questions" :key=question.name v-bind:md-label=question.name+question.status>
-                    <doctest-activity v-bind:layout-things=question.layoutItems v-bind:question-name=question.name  @questionhandler="toggleQuestionStatus"/>
+                    <question-activity v-bind:layout-things=question.layoutItems v-bind:question-name=question.name  @questionhandler="toggleQuestionStatus"/>
+                </md-tab>
+                <md-tab :key=special_question.name v-bind:md-label=special_question.name+special_question.status>
+                    <question-activity v-bind:layout-things=special_question.layoutItems v-bind:question-name=special_question.name  @questionhandler="toggleQuestionStatus"/>
                 </md-tab>
             </md-tabs>
             </div>
@@ -36,7 +42,7 @@
     Vue.use(VueMaterial.default)
     Vue.use(window.VueCodemirror)
 
-    Vue.component('doctest-activity', {
+    Vue.component('question-activity', {
         props: ['layoutThings', 'questionName'],
         data: function () {
             return {
@@ -152,12 +158,115 @@
         `
     })
 
+    Vue.component('intro-activity', {
+        props: ['layoutThings', 'questionName'],
+        data: function () {
+            return {
+            answer:{jsonFeedback:'',htmlFeedback:'',textFeedback:'',isComplete:false},
+            layoutItems: this.layoutThings,
+            cmOptions: {
+              mode: 'python',
+              lineNumbers: true
+            },
+            cmReadOnly: {
+              lineNumbers: true,
+              mode:  "python",
+              readOnly: true
+            }
+        }
+        },
+        methods: {
+            postContents: function () {
+            // comment: leaving the gatewayUrl empty - API will post back to itself
+            const gatewayUrl = '';
+            this.$set(this, 'answer', {jsonFeedback:'',htmlFeedback:'',textFeedback:'',isComplete:false});
+            fetch(gatewayUrl, {
+        method: "POST",
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            sessionIndex:{0:this.layoutItems[0].sessionIndex},
+            shown:{0:this.layoutItems[0].vModel},
+            editable:{0:this.layoutItems[1].vModel}})
+        }).then(response => {
+            return response.json()
+        }).then(data => {
+            this.answer = JSON.parse(JSON.stringify(data))
+            this.answer.jsonFeedback = JSON.stringify(this.answer.jsonFeedback)
+            return this.$emit('questionhandler',{data, questionName:this.questionName})
+            })
+         }
+        },
+        template:
+        `<div class="md-layout  md-gutter">
+            <div id="cardGroupCreator" class="md-layout-item md-size-50">
+              <md-card>
+                    <md-card-header>
+                        <md-card-header-text>
+                            <div class="md-title">{{layoutItems[2].header}}</div>
+                            <div class="md-subhead">{{layoutItems[2].subHeader}}</div>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content>
+                        <md-field>
+                            <md-textarea v-model="layoutItems[2].vModel" readonly></md-textarea>
+                        </md-field>
+                    </md-card-content>
+                </md-card>
+                <md-card>
+                    <md-card-header>
+                        <md-card-header-text>
+                            <div class="md-title">{{layoutItems[1].header}}</div>
+                            <div class="md-subhead">{{layoutItems[1].subHeader}}</div>
+                        </md-card-header-text>
+                            <md-card-media>
+                                <md-button class="md-raised md-primary" v-on:click="postContents">Submit</md-button>
+                            </md-card-media>
+                    </md-card-header>
+                    <md-card-content>
+                        <md-field>
+                            <codemirror class="editableTextarea" v-model="layoutItems[1].vModel" :options="cmOptions"></codemirror>
+                        </md-field>
+                    </md-card-content>
+                </md-card>
+            </div>
+            <div id="cardGroupPreview" class="md-layout-item md-size-50">
+                <md-card>
+                    <md-card-header>
+                        <md-card-header-text>
+                            <div class="md-title">Output</div>
+                            <div class="md-subhead">Test results</div>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content>
+                        <md-field>
+                            <md-tabs>
+                                <md-tab id="tab-htmlResults" md-label="HTML results">
+                                    <div v-html="answer.htmlFeedback"></div>
+                                </md-tab>
+                                <md-tab id="tab-jsonResults" md-label="JSON results">
+                                    <md-textarea v-model="answer.jsonFeedback" readonly></md-textarea>
+                                </md-tab>
+                                <md-tab id="tab-textResults" md-label="Text results">
+                                    <md-textarea v-model="answer.textFeedback" readonly></md-textarea>
+                                </md-tab>
+                            </md-tabs>
+                        </md-field>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </div>
+        `
+    })
+
     new Vue({
         el: '#app',
         data: function () {
             return {
+                intro:%question_1_content,
             questions:[
-                %question_1_content,
                 %question_2_content,
                 %question_3_content,
                 %question_4_content,
@@ -165,9 +274,9 @@
                 %question_6_content,
                 %question_7_content,
                 %question_8_content,
-                %question_9_content,
-                %question_10_content,
-            ]
+                %question_9_content
+            ],
+            special_question:%question_10_content
         }
         },
          methods: {
