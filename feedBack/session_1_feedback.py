@@ -13,10 +13,10 @@ def run_test_case_session(solution):
     :param solution: user submit solution
     :return: a tuple of (result, is_solved)
     """
-    test_cases = OrderedDict([('yyyyesss', 'match'),
-                              ('yyeeees', 'match'),
-                              ('yyss', 'match'),
-                              ('y', 'skip')
+    test_cases = OrderedDict([('Stark', 'match'),
+                              ('Baratheon', 'match'),
+                              ('Targaryen', 'match'),
+                              ('Lannister', 'skip')
                               ]
                              )
 
@@ -27,10 +27,13 @@ def run_test_case_session(solution):
         match_result = re.search(solution, case)
         if match_result:
             got = match_result.group()
-            if objective == 'match' and got == case:
+            got = 'match'
+            if objective == 'match':
                 correct = True
+                
             else:
                 correct = solved = False
+                
         else:
             got = 'skipped'
             if objective == 'skip':
