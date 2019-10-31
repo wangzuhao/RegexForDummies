@@ -8,7 +8,7 @@
                 {header:"Editable Code Block",
                 subHeader:'Please write your regex here',
                 vModel:""},
-                {header:"Introduction", subHeader:'',
+                {header:"Capture Group", subHeader:'',
                 vModel:"One day, Joffrey asked John to pick up all the names of pdf files in the company document library with fixed prefix. There were so many documents in the company directory that he didn't know where to start, so he asked Sam for help. Sam gave him detailed instructions on how to accomplish this task with REGEX."+
                        "\n\n"+
                        "Regular expressions allow us to not just match text but also to extract information for further processing. This is done by defining groups of characters and capturing them using the special parentheses ( and ) metacharacters. Any subpattern inside a pair of parentheses will be captured as a group. In practice, this can be used to extract information like phone numbers or emails from all sorts of data."+
