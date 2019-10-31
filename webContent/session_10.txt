@@ -4,7 +4,7 @@
                 vModel:"Match ... \nMatch ... \nMatch ... \nSkip ..."},
                 {header:"User-defined REGEX solution",
                 subHeader:'Please write your regex solution here to pass all your test cases',
-                vModel:"y{2,4}[es]{1,5}"},
-                {header:"Introduction", subHeader:'',
-                vModel:"Congrats! Now you've become a REGEX master!\nIt's time for your to design your own challenge. Design your own test cases and provide the answer in your mind. Someday your peer learners will be challenged by your questions!"}
+                vModel:""},
+                {header:"Design your own question", subHeader:'',
+                vModel:"Congrats! Now you've become a REGEX master!\n\nIt's time for your to design your own challenge. Design your own test cases and provide the answer in your mind. Someday your peer learners will be challenged by your questions!"}
                 ], status:" 🔴"}
