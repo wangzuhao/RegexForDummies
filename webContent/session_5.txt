@@ -6,9 +6,24 @@
                 },
                 {   header:"Editable Code Block",
                     subHeader:'Please write your regex here',
-                    vModel:"^(\(|\[).+"
+                    vModel:""
                 },
-                {   header:"Introduction", subHeader:'',
-                    vModel:"On the right side there is a lyrics with guitar chords. Chould you create a Regex to remove all chords, and just keep the lyrics? Hint: the result should be like below:\n\nTEARS IN HEAVEN \n Would you know my name,\n If I saw you in heaven?\n Would it be the same,\n If I saw you in heaven?\n I must be strong,\n and carry on,\n 'Cause I know I don't belong,\n Here in heaven."
+                {   header:"Escape", subHeader:'',
+                    vModel:
+                    "If you want to use any of the meta characters as literals in a regex, you need to “escape” them with a backslash “\”. Such meta characters includes +*?^$\.[]{}()|/"+
+                    "\n\n"+
+                    "Here are some other common escape characters:"+
+                    "\n\n"+
+                    "•	Tab \\ t"+
+                    "\n\n"+
+                    "•	Line feed \\ n"+
+                    "\n\n"+
+                    "•	Carriage return \\ r"+
+                    "\n\n"+
+                    "•	Null \\ 0"+
+                    "\n\n"+
+                    "Note that in Windows operating system, the End of Line (EOL) indicator consists of a carriage return followed by a line feed, e.g. \r\n. whereas in Linux (and Mac 10 above), EOL is a single line feed \n. "+
+                    "\n\n"+
+                    "On the right side there is a lyrics with guitar chords. Chould you create a Regex to remove all chords, and just keep the lyrics? Hint: the result should be like below:\n\nTEARS IN HEAVEN \n Would you know my name,\n If I saw you in heaven?\n Would it be the same,\n If I saw you in heaven?\n I must be strong,\n and carry on,\n 'Cause I know I don't belong,\n Here in heaven."
                 }], 
     status:" 🔴"}
