@@ -10,8 +10,9 @@
                 {header:"Editable Code Block",
                 subHeader:'Please write your regex here using what you have learned in this lesson (Note: we are using the version of  python here.)',
                 vModel:"" }, 
-                {header:"Introduction", subHeader:'Character Class Subtraction and Intersection',
-                vModel:"(1) Subtraction"+
+                {header:"Character Class Subtraction and Intersection", subHeader:'',
+                vModel:"When completing some problems, Joffrey expects John to simplify the steps. John felt confused about Joffrey's opinion, so Sam introduced subtraction and intersection to John.\n\n"+
+                       "(1) Subtraction"+
                        "\n\n"+
                        "Character class subtraction makes it easy to match any single character present in one list (the character class), but not present in another list (the subtracted class)."+
                        "\n\n"+
