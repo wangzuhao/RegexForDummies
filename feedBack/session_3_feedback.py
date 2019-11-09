@@ -93,13 +93,14 @@ def generate_feedback(solution):
             correct = resultContent[i]["correct"]
             objective = resultContent[i]["case_objective"]
             if correct:
-                textResults = textResults + "\nHurray! You have passed this test case {}.\n".format(expectedText)
+                textResults = textResults + "\nGreat! You have passed this test case {}.\n".format(expectedText)
                 textBackgroundColor = "#b2d8b2"
             else:
                 if expectedText == 'skip':
                     textResults = textResults + "\nYou should skip this case: {}".format(expectedText)
-                textResults = textResults + "\nThe test case eludes your code so far but try again! You should match {} but received {}.\n".format(
-                    expectedText, receivedText)
+                else:
+                    textResults = textResults + "\nMaybe you should try again for this case. You should match {} but received {}.\n".format(
+                        expectedText, receivedText)
                 textBackgroundColor = "#ff9999"
             tableContents = tableContents + """
                     <tr bgcolor={4}>
@@ -109,13 +110,20 @@ def generate_feedback(solution):
                         <td>{3}</td>
                     </tr>
                     """.format(objective, expectedText, receivedText, str(correct), textBackgroundColor)
-    solvedStatusText = str(jsonResponseData.get("solved")) or "error"
+
+    if not jsonResponseData.get("solved", False):
+        if "{" not in solution:
+            textResults += "\nHint: you may try using Curly Braces to pass these tests"
+        else:
+            textResults += "\nHint: you are close to the solution, carefully count the number of characters again"
+            
+    solvedStatusText = str(jsonResponseData.get("solved", "error"))
     textResults = """All tests passed: {0}\n""".format(solvedStatusText) + textResults
     if not resultContent:
         textResults = "Your test is passing but something is incorrect..."
 
     if timeout or jsonResponseData.get("errors"):
-        textResults = "An error - probably related to code syntax - has occured. Do look through the JSON results to understand the cause."
+        textResults = "There is an error happening in the backend, please check again your input"
         tableContents = """
                     <tr>
                         <td></td>

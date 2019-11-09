@@ -92,12 +92,12 @@ def generate_feedback(solution):
             correct = resultContent[i]["correct"]
             objective = resultContent[i]["case_objective"]
             if correct:
-                textResults = textResults + "\nHurray! You have passed this test case {}.\n".format(expectedText)
+                textResults = textResults + "\nGreat! You have passed this test case {}.\n".format(expectedText)
                 textBackgroundColor = "#b2d8b2"
             else:
                 if expectedText == 'skip':
                     textResults = textResults + "\nYou should skip this case: {}".format(expectedText)
-                textResults = textResults + "\nThe test case eludes your code so far but try again! You should match {} but received {}.\n".format(
+                textResults = textResults + "\nMaybe you should try again for this case. You should match {} but received {}.\n".format(
                     expectedText, receivedText)
                 textBackgroundColor = "#ff9999"
             tableContents = tableContents + """
@@ -108,13 +108,20 @@ def generate_feedback(solution):
                         <td>{3}</td>
                     </tr>
                     """.format(objective, expectedText, receivedText, str(correct), textBackgroundColor)
+
+    if not jsonResponseData.get("solved", False):
+        if "$" not in solution:
+            textResults += "\nHint: you may try using $ at the end of a word to match a string with the word in the end"
+        elif "?" not in solution and "\\b" not in solution:
+            textResults += "\nHint: you may try ? and/or \\b to match both 'successful' and 'unsuccessful'."
+
     solvedStatusText = str(jsonResponseData.get("solved")) or "error"
     textResults = """All tests passed: {0}\n""".format(solvedStatusText) + textResults
     if not resultContent:
         textResults = "Your test is passing but something is incorrect..."
 
     if timeout or jsonResponseData.get("errors"):
-        textResults = "An error - probably related to code syntax - has occured. Do look through the JSON results to understand the cause."
+        textResults = "There is an error happening in the backend, please check again your input"
         tableContents = """
                     <tr>
                         <td></td>
