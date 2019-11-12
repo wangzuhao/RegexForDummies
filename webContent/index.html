@@ -17,7 +17,20 @@
     </script>
 
     <body>
-         <h1>Regex For Dummies</h1>
+        <h1>Regex For Dummies
+        </h1>
+        <div class="share_buttons">
+            <div class="share_2">
+                <a href="https://twitter.com/intent/tweet?button_hashtag=RegexForDummies&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-text="It &#39;s really good! I learned a lot!" data-url="https://m247ll08hk.execute-api.us-east-1.amazonaws.com/default/IS5003_LastMile" data-show-count="false">Tweet #RegexForDummies</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+            <div class="share_1">
+                <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fm247ll08hk.execute-api.us-east-1.amazonaws.com%2Fdefault%2FIS5003_LastMile&layout=button&size=small&width=67&height=20&appId" width="67" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+            </div>
+            <div class = "share_3">
+                <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+                <script type="IN/Share" data-url="https://m247ll08hk.execute-api.us-east-1.amazonaws.com/default/IS5003_LastMile"></script>
+            </div>
+        </div>
         <div id="app">
             <md-tabs>
                 <md-tab :key=intro.name v-bind:md-label=intro.name+intro.status>
@@ -218,7 +231,7 @@
                     </md-card-content>
                 </md-card>
                 <iframe id="video"width="400" height="300"
-                    src="https://www.youtube.com/embed/GVZOJ1rEnUg">
+                    src="https://www.youtube.com/embed/vRCDnh2oj00">
                 </iframe>
                 <md-card>
                     <md-card-header>
@@ -328,6 +341,22 @@
                         </md-field>
                     </md-card-content>
                 </md-card>
+                
+            </div>
+            <div id="cardGroupPreview" class="md-layout-item md-size-50">
+                 <md-card>
+                    <md-card-header>
+                        <md-card-header-text>
+                            <div class="md-title">{{layoutItems[0].header}}</div>
+                            <div class="md-subhead">{{layoutItems[0].subHeader}}</div>
+                        </md-card-header-text>
+                    </md-card-header>
+                    <md-card-content>
+                        <md-field>
+                            <codemirror class="editableTextarea" v-model="layoutItems[0].vModel" :options="cmOptions"></codemirror>
+                        </md-field>
+                    </md-card-content>
+                </md-card>
                 <md-card>
                     <md-card-header>
                         <md-card-header-text>
@@ -341,21 +370,6 @@
                     <md-card-content>
                         <md-field>
                             <codemirror class="editableTextarea" v-model="layoutItems[1].vModel" :options="cmOptions"></codemirror>
-                        </md-field>
-                    </md-card-content>
-                </md-card>
-            </div>
-            <div id="cardGroupPreview" class="md-layout-item md-size-50">
-                 <md-card>
-                    <md-card-header>
-                        <md-card-header-text>
-                            <div class="md-title">{{layoutItems[0].header}}</div>
-                            <div class="md-subhead">{{layoutItems[0].subHeader}}</div>
-                        </md-card-header-text>
-                    </md-card-header>
-                    <md-card-content>
-                        <md-field>
-                            <codemirror class="editableTextarea" v-model="layoutItems[0].vModel" :options="cmOptions"></codemirror>
                         </md-field>
                     </md-card-content>
                 </md-card>
@@ -435,11 +449,23 @@
     .md-card-content {
         padding-bottom: 16px !important;
     }
+    
+    .md-card .md-title{
+        color: #0984e3;
+        text-transform: uppercase
+    }
+    
     button {
         display:block;
         margin: 20px 60px 20px 60px;
         width:200px !important;
     }
+    
+    .md-button .md-ripple{
+        background-color: white;
+        color: black;
+    }
+    
     #cardGroupCreator {
         display:flex;
         flex-direction:column;
@@ -450,8 +476,8 @@
     #video{
         display:flex;
         flex-direction:column;
-        width: 90%;
-        height: 400px;
+        width: 80%;
+        height: 500px !important;
         margin: 20px;
         margin: 0 auto;
     }
@@ -481,15 +507,18 @@
     width: 0px;
     }
     html {
-        width:95%;
+        /*width:95%;*/
         margin:auto;
         mix-blend-mode: darken
     }
     h1{
-        padding:20px;
-        margin:auto;
-        text-align: center
+        padding:40px;
+        /*margin:auto;*/
+        text-align: center;
+        background-color: #74b9ff;
+        text-transform: uppercase;
     }
+
     .md-content{
         min-height:100px
     }
@@ -515,7 +544,7 @@
         height:100%
     }
     .md-card-header{
-        padding:0 16px 16px 16px
+        padding: 20px !important
     }
     
     .md-layout-item.md-size-50{
@@ -532,7 +561,61 @@
         white-space: pre-wrap;
         word-wrap: break-word;
         font-size: 16px; 
-        font-family: "Arial"
+        font-family: "Microsoft YaHei"
+    }
+    
+    .share_buttons{
+        text-align: center;
+        width: 360px;
+        margin: -10 auto;
+    }
+    
+    .share_1{
+        float:left;
+        margin-left:10px;
+        font-size: 10px!important;
+    }
+    
+    .share_2{
+        float:left;
+        height: 30px;
+        margin-left:10px;
+        width: 165px;
+    }
+    
+    .share_3{
+        float:left;
+        height: 25px;
+        margin-left:10px;
+    }
+    
+    button.IN-2bc0215c-7188-4274-b598-1969e06d4d7c-1G9ISYhSF8XoOmdcl0yKDu{
+        margin: 0;
+    }
+        
+    audio:not(.md-image), canvas:not(.md-image), embed:not(.md-image), iframe:not(.md-image), img:not(.md-image), object:not(.md-image), video:not(.md-image){
+        height: 20px !important;
+        font-size: 11px;
+    }
+    
+    
+    
+    a#b{
+        height: 27px !important;
+    }
+    
+    
+    .IN-2bc0215c-7188-4274-b598-1969e06d4d7c-1G9ISYhSF8XoOmdcl0yKDu, .IN-2bc0215c-7188-4274-b598-1969e06d4d7c-1G9ISYhSF8XoOmdcl0yKDu.IN-2bc0215c-7188-4274-b598-1969e06d4d7c-3uCBSbQNVNf2QjqHe1rfb6 {
+        font-size: 11px!important;
+        height: 20px!important;
+        line-height: 20px!important;
+        padding: 0 7px!important;
+        width: 80px !important;
+    }
+    
+    body.plugin{
+        font-size: 10px;
+        line-height:20px!important;
     }
     </style>
     </html>
